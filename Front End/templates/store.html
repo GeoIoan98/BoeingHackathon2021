@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Store</title>
+        <meta charset="utf-8" />
+    		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <style>
+          .whole {
+            display: inline-block;
+
+          }
+
+          .titles {
+            background-color: lightgrey;
+            width: 300px;
+            border: 5px solid green;
+            padding: 30px;
+            margin: 20px;
+          }
+
+          .extra {
+            text-align:center;
+            margin:10px;
+          }
+
+          .label {
+            color: white;
+            padding: 8px;
+            font-family: Arial;
+          }
+
+          .other {background-color: #e7e7e7; color: black; padding-top:5px;}
+
+          img {
+            padding-bottom:10px;
+          }
+
+          .nextto {
+            display:inline-block;
+            /* width:200px; */
+          }
+
+          span.a {
+            display: inline; /* the default for span */
+            width: 100px;
+            height: 100px;
+            padding: 5px;
+            border: 1px solid blue;
+            background-color: yellow;
+          }
+
+
+        </style>
+
+
+    </head>
+
+
+
+    <body>
+
+
+
+      <div class = "whole">
+        <div class = "titles">
+          <h2 class = extra> Artwork: The Flying Bird of the Ocean </h2>
+          <img src="/static/images/painting.jpg" width="300" height="233">
+          <div>
+            <span class="label other a">Current Best Bid:</span>
+            <span class="a" type="text" id="fname" name="firstname" placeholder="Your name..">No Bids yet!</span>
+          </div>
+          <div style="padding-top:10px">
+            <input type="text" id="bid_1" placeholder="Place your bid.."/>
+            <script>
+            var input = document.getElementById("bid_1");
+            input.addEventListener("keyup", function(event) {
+              if (event.keyCode === 13) {
+               event.preventDefault();
+               document.getElementById("fname").innerHTML = "Worked!";
+              }
+            });
+            </script>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class = "whole">
+        <div class = "titles">
+          <h2 class = extra> Concert: Green mild jalapeno peppers </h2>
+          <img src="/static/images/concert.jpg" width="300" height="233">
+          <div>
+            <span class="label other a">Current Best Bid:</span>
+            <span class="a" type="text" id="fname_2" name="secondname" placeholder="Your name..">No Bids yet!</span>
+          </div>
+          <div style="padding-top:10px">
+            <input type="text" id="bid_2" placeholder="Place your bid.."/>
+            <script>
+            var input = document.getElementById("bid_2");
+            input.addEventListener("keyup", function(event) {
+              if (event.keyCode === 13) {
+               event.preventDefault();
+               document.getElementById("fname_2").innerHTML = "Worked!";
+              }
+            });
+            </script>
+          </div>
+
+
+        </div>
+      </div>
+
+    </body>
+
+
+</html>

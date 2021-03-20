@@ -1,21 +1,22 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Restaurants</title>
+        <title>Organisation</title>
         <meta charset="utf-8" />
     		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <style>
           .title {
             border: none;
-            padding: 15px 50px;
+            /* height: 50px; */
+            /* padding: 15px 50px; */
             text-align: center;
             text-decoration: none;
             font-size: 20px;
           }
 
           .input_class {
-            display: inline-block;
+            display: vertical;
           }
 
           .restaurant_border {
@@ -46,28 +47,29 @@
                     contract = contractInstance;
 
                     $("a#call_add_restaurant_to_competition").click(function(){
-                        var name = $("input#restaurant_name").val();
-                        var expiration = $("input#restaurant_expiration").val();
-                        var expiration_copy = expiration;
-                        contractInstance.add_restaurant_to_competition(name, expiration, {from:web3.eth.accounts[0], 'value': 1000000000000000000}, function(error, result){
+                        var name  = $("input#organisation_name").val();
+                        var addr  = $("input#organisation_address").val();
+                        var loc   = $("input#location").val();
+                        var email = $("input#email").val();
+                        contractInstance.add_restaurant_to_competition(name, addr, loc, email, {from:web3.eth.accounts[0], 'value': 1000000000000000000}, function(error, result){
                           if (error) {
                               alert("Please, connect to the network");
                               reject(error);
                           }
-                          else {
-                            $('#willhide').hide();
-                            var d = new Date(new Date().getTime() + (expiration_copy*1000));
-                            expiration = d;
-                            $('#inserthere').append("<div class='restaurant_border'>" + "Restaurant name: " + name + "<br>" + "Offer expires: " + expiration + "<br>" + "Restaurant Address: " + web3.eth.accounts[0] + "</div>");
-                            setTimeout(function(){ // test to trigger automatically
-                                var address_1 = $("input#restaurant_address_1").val();
-                                contractInstance.get_winner(address_1, {from:web3.eth.accounts[0]}, function(error, result){
-                                  if (error) {
-                                      alert("Please, connect to the network");
-                                      reject(error);
-                                  }
-                                }); }, expiration_copy*1000);
-                          }
+                          // else {
+                          //   $('#willhide').hide();
+                          //   var d = new Date(new Date().getTime() + (expiration_copy*1000));
+                          //   expiration = d;
+                          //   $('#inserthere').append("<div class='restaurant_border'>" + "Restaurant name: " + name + "<br>" + "Offer expires: " + expiration + "<br>" + "Restaurant Address: " + web3.eth.accounts[0] + "</div>");
+                          //   setTimeout(function(){ // test to trigger automatically
+                          //       var address_1 = $("input#restaurant_address_1").val();
+                          //       contractInstance.get_winner(address_1, {from:web3.eth.accounts[0]}, function(error, result){
+                          //         if (error) {
+                          //             alert("Please, connect to the network");
+                          //             reject(error);
+                          //         }
+                          //       }); }, expiration_copy*1000);
+                          // }
                         });
                     });
                     $("a#call_get_winner").click(function(){
@@ -118,10 +120,10 @@
       <!-- Header -->
   			<header id="header">
   				<div class="inner">
-  					<a href="restaurant" class="logo">Restaurants</a>
+  					<a href="restaurant" class="logo">OceanCoin</a>
   					<nav id="nav">
   						<a href="intro">Home</a>
-  						<a href="customer">Customers Page</a>
+  						<a href="customer">Volunteer Page</a>
   					</nav>
   					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
   				</div>
@@ -130,78 +132,45 @@
         <section id="three" class="wrapper">
   				<div class="inner">
   					<header class="title" >
-  						<h2 style="color:black">Welcome to the Restaurant platform!</h2>
+  						<h2 style="color:black">Register Organisation</h2>
   					</header>
             <div class="flex flex-2">
               <article>
+                    <div class = "input_class">
+                      <input type="text" id="organisation_name" placeholder="Organisation Name.."/>
+                    </div>
+                    <br />
+                    <br />
+                    <div class = "input_class">
+                      <input type="text" id="organisation_address" placeholder="Organisation Address.."/>
+                    </div>
+                    <br />
+                    <br />
+                    <div class = "input_class">
+                      <input type="text" id="location" placeholder="Location.."/>
+                    </div>
+                    <br />
+                    <br />
+                    <div class = "input_class">
+                      <input type="text" id="email" placeholder="E-mail.."/>
+                    </div>
+                  <br />
 
                   <br />
-                    <div class = "input_class">
-                      <input type="text" id="restaurant_name" value="Insert name of restaurant here"/>
-                    </div>
-                    <div class = "input_class">
-                      <input type="text" id="restaurant_expiration" value="Insert expiration here"/>
-                    </div>
-                  <br />
-                  <footer>
-    								<a href="#" id="call_add_restaurant_to_competition" class="button special">Add to Competition</a>
-    							</footer>
-                  <br />
 
-                  <header class="title" >
-        						<h2 style="color:black">Competitions</h2>
-        					</header>
 
                   <div id="willhide">
-                    <h4 style="color:black">No competitions yet</h4>
+                    <h4 style="color:black">No organisations yet</h4>
                   </div>
 
                   <div id="inserthere"></div>
                   <br />
 
-                  <!-- Signature Section -->
 
-                  <header class="align-center">
-                    <h2> Signature Section below! </h2>
-                  </header>
 
-                  <br />
-                    <div class = "input_class">
-                      <input type="text" id="message_to_sign" value="Insert message to sign here"/>
-                    </div>
-                  <br />
-                  <div class = "input_class">
-                    <p><span id="hashed">No hashed yet</span></p>
-                  </div>
-                  <div class = "input_class">
-                    <p><span id="sign">No signature yet</span></p>
-                  </div>
-                  <br />
                   <footer>
-                    <a href="#" id="call_sign_message" class="button special">Sign</a>
+                    <a href="#" id="call_add_restaurant_to_competition" class="button special">Register Organisation</a>
                   </footer>
-                  <br />
-                  <br />
-
-                  <!-- Winner Section -->
-
-                  <header class="align-center">
-                    <h2 style="color:black"> Winner Section below! </h2>
-                  </header>
-
-                  <div class = "input_class">
-                    <input type="text" id="restaurant_address_1" value="Insert restaurant address here"/>
-                  </div>
-                  <div class = "input_class">
-                    <p><span id="winner">No winner yet</span></p>
-                  </div>
-                  <footer>
-    								<a href="#" id="call_get_winner" class="button special">Get winner!</a>
-    							</footer>
-                  <br />
-                  <footer>
-    								<a href="#" id="call_show_winner" class="button special">Show winner!</a>
-    							</footer>
 
 
   						</article>

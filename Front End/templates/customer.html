@@ -1,14 +1,31 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Customers</title>
+        <title>Organisation</title>
         <meta charset="utf-8" />
     		<meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style>
 
-        .input_class {
-          display: inline-block;
-        }
+        <style>
+          .title {
+            border: none;
+            /* height: 50px; */
+            /* padding: 15px 50px; */
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+          }
+
+          .input_class {
+            display: vertical;
+          }
+
+          .restaurant_border {
+            display: inline-block;
+            width: 700px;
+            padding: 10px;
+            border: 5px solid green;
+            margin: 0;
+          }
 
         </style>
 
@@ -29,19 +46,28 @@
                     var contractInstance = contractABI.at(sc_address);
                     contract = contractInstance;
 
-                    $("a#call_add_customer_to_competition").click(function(){
-                        var name = $("input#customer_name").val();
-                        var address = $("input#restaurant_address").val();
-                        var signed = $("input#s123").val();
-                        var hashed = $("input#h123").val();
-                        contractInstance.add_customer_to_competition(name, address, hashed, signed, {from:web3.eth.accounts[0]}, function(error, result){
+                    $("a#call_add_restaurant_to_competition").click(function(){
+                        var name  = $("input#volunteer_name").val();
+                        var addr  = $("input#volunteer_address").val();
+                        contractInstance.add_restaurant_to_competition(name, addr, {from:web3.eth.accounts[0], 'value': 1000000000000000000}, function(error, result){
                           if (error) {
                               alert("Please, connect to the network");
                               reject(error);
                           }
-                          else {
-                            alert("Successfully Joined Competition")
-                          }
+                          // else {
+                          //   $('#willhide').hide();
+                          //   var d = new Date(new Date().getTime() + (expiration_copy*1000));
+                          //   expiration = d;
+                          //   $('#inserthere').append("<div class='restaurant_border'>" + "Restaurant name: " + name + "<br>" + "Offer expires: " + expiration + "<br>" + "Restaurant Address: " + web3.eth.accounts[0] + "</div>");
+                          //   setTimeout(function(){ // test to trigger automatically
+                          //       var address_1 = $("input#restaurant_address_1").val();
+                          //       contractInstance.get_winner(address_1, {from:web3.eth.accounts[0]}, function(error, result){
+                          //         if (error) {
+                          //             alert("Please, connect to the network");
+                          //             reject(error);
+                          //         }
+                          //       }); }, expiration_copy*1000);
+                          // }
                         });
                     });
                     $("a#call_get_winner").click(function(){
@@ -65,19 +91,37 @@
                           }
                         });
                     });
-                  }
+                    $("a#call_sign_message").click(function(){
+                        const message = web3.sha3($("input#message_to_sign").val());
+                        web3.eth.sign(web3.eth.accounts[0], message, function(error, result) {
+                            if (error) {
+                                alert("Error");
+                                reject(error);
+                            }
+                            else {
+                                  $("span#hashed").html('Hashed message: ' + message);
+                                  $("span#sign").html('Signature: ' + result);
+                            }
+                        });
+                    });
+
+
+
+                }
+                else {
+                    alert("Please, install Metamask!");
+                }
             });
         </script>
-
     </head>
     <body class="subpage">
       <!-- Header -->
   			<header id="header">
   				<div class="inner">
-  					<a href="index.html" class="logo">Customers</a>
-            <nav id="nav">
+  					<a href="customer" class="logo">OceanCoin</a>
+  					<nav id="nav">
   						<a href="intro">Home</a>
-  						<a href="restaurant">Restaurants Page</a>
+  						<a href="restaurant">Organisation Page</a>
   					</nav>
   					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
   				</div>
@@ -85,58 +129,37 @@
 
         <section id="three" class="wrapper">
   				<div class="inner">
-  					<header id="test" class="align-center">
-  						<h2 style="color:black">Welcome to the Customer platform!</h2>
+  					<header class="title" >
+  						<h2 style="color:black">Register Volunteer</h2>
   					</header>
             <div class="flex flex-2">
               <article>
-                <br />
+                    <div class = "input_class">
+                      <input type="text" id="volunteer_name" placeholder="Volunteer Name.."/>
+                    </div>
+                    <br />
+                    <br />
+                    <div class = "input_class">
+                      <input type="text" id="volunteer_address" placeholder="Volunteer Address.."/>
+                    </div>
+                  <br />
 
-                <br />
-                  <div class = "input_class">
-                    <input type="text" id="restaurant_address" value="Insert restaurant address here"/>
+                  <br />
+
+
+                  <div id="willhide">
+                    <h4 style="color:black">No volunteers yet</h4>
                   </div>
-                  <div class = "input_class">
-                    <input type="text" id="customer_name" value="Insert your name here"/>
-                  </div>
-                  <div class = "input_class">
-                    <input type="text" id="h123" value="Insert hash here"/>
-                  </div>
-                  <div class = "input_class">
-                    <input type="text" id="s123" value="Insert sign here"/>
-                  </div>
-                <br />
 
-                <br />
-
-
-                <footer>
-                  <a href="#" id="call_add_customer_to_competition" class="button special">Join Competition</a>
-                </footer>
-
-                <br />
-
-
-                <header class="align-center">
-                  <h2> Winner Section below! </h2>
-                </header>
+                  <div id="inserthere"></div>
+                  <br />
 
 
 
+                  <footer>
+                    <a href="#" id="call_add_restaurant_to_competition" class="button special">Register Volunteer</a>
+                  </footer>
 
-                <div class = "input_class">
-                  <input type="text" id="restaurant_address_1" value="Insert restaurant address here"/>
-                </div>
-                <div class = "input_class">
-                  <p><span id="winner">No winner yet</span></p>
-                </div>
-                <footer>
-                  <a href="#" id="call_get_winner" class="button special">Get winner!</a>
-                </footer>
-                <br />
-                <footer>
-                  <a href="#" id="call_show_winner" class="button special">Show winner!</a>
-                </footer>
 
   						</article>
             </div>
