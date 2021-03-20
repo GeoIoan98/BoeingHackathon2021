@@ -4,32 +4,100 @@
         <title>Intro Page</title>
         <meta charset="utf-8" />
     		<meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Pangolin"/>
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Syne+Mono"/>
+
 
         <style>
 
+
+        .episodesGrid {
+            position: relative;
+    max-width: 40vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    left : 33vw;
+	margin: 0px;
+	min-height: calc(90vh - 44px);
+	max-height: 50vh;
+    overflow: hidden;
+    padding-top: 5vw;
+	/* background-color: #343635; */
+	color: #FDF9FC;
+        }
+        .episodesLabel{
+	border-color: #000000;
+	border-top: 5px;
+    font-family: 'Syne Mono';
+	/* font-family: 'Bebas Neue'; */
+	/* background-color:  #f0b3fc; */
+	color: #343635;
+	padding: 0px;
+	margin: 0px;
+	width: 200px;
+    height: 100px;
+	font-size:25px;
+	display: block;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+	transition-duration: 0.4s;
+}
+        .episodesLabel:hover{
+	    border-color: #000000;
+        cursor: pointer;
+	    border-width: thick;
+        font-family: 'Syne Mono';
+	    /* font-family: 'Bebas Neue'; */
+	    /* background-color:  #f0b3fc; */
+	    color: #343635;
+	    padding: 0px;
+	    margin: 0px;
+	    width: 200px;
+	    font-size:27px;
+	    display: block;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+	   transition-duration: 0.4s;
+    }
         .button {
           /* background-color: #4CAF50; */
+          padding: 0px;
+	      margin: 0px;
+	      width: 200px;
+          height: 100px;
+	      font-size:30px;
+	      display: inline-block;
+          text-align: center;
+          margin-inline-start: 0px;
+          margin-inline-end: 0px;
+	      transition-duration: 0.4s;
           border: solid;
           color: white;
-          padding: 30px 150px;
+          border-color: coral;
+          /* padding: 30px 150px; */
           /* flex: 1; */
           margin-bottom: 5px;
           text-align: center;
           text-decoration: none;
-          display: inline-block;
-          font-size: 30px;
+          /* display: inline-block; */
+          /* font-size: 30px; */
         }
 
         .button_above {
           /* background-color: #4CAF50;
           border: none; */
+          position: relative;
+          font-family: 'Pangolin';
           color: white;
           padding: 60px 700px;
+          margin: auto;
           width: auto;
           text-align: center;
           /* text-decoration: none; */
           /* display: inline-block; */
-          font-size: 30px;
+          font-size: 60px;
 
         }
 
@@ -51,7 +119,7 @@
           max-height: 100%;
           /* display: block; */
 
-          background-image: url("static/images/ocean.jpg");
+          background-image: url("static/images/brian-yurasits-y8k-dMPNWNI-unsplash.jpg");
           /* Full height */
 
           /* Center and scale the image nicely */
@@ -151,12 +219,12 @@
       <div class = "place_above">
         <h1 class = button_above> OceanClean </h1>
       </div>
-      <div class = "place_middle">
-        <a href="restaurant" class="button">Register Organisation</a>
+      <div class = "episodesGrid">
+        <button href="restaurant" class="episodesLabel">Register Organisation</button>
         <!-- <button class="episodesLabel" > <a class="episodesLabelEmpty" href="restaurant">Register Organisation </a></button> -->
-        <a href="customer" class="episodesLabel">Register Volunteer</a>
-        <a href="store" class="episodesLabel">Store</a>
-        <a href="leaderboards" class="episodesLabel">Leaderboards</a>
+        <button href="customer" class="episodesLabel">Register Volunteer</button>
+        <button href="store" class="episodesLabel">Store</button>
+        <button href="leaderboards" class="episodesLabel">Leaderboards</button>
       </div>
 
 
