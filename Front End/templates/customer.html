@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Customers</title>
+        <meta charset="utf-8" />
+    		<meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+
+        .input_class {
+          display: inline-block;
+        }
+
+        </style>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+        <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+  			<script src="{{ url_for('static', filename='assets/js/skel.min.js') }}"></script>
+  			<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+  			<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+
+        <script lang="javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script lang="javascript">
+            var contract;
+
+            $(document).ready(function() {
+                if (typeof web3 !== 'undefined') {
+                    var sc_address = "{{contractAddress}}";
+                    var contractABI = web3.eth.contract(JSON.parse('{{contractABI | safe}}'));
+                    var contractInstance = contractABI.at(sc_address);
+                    contract = contractInstance;
+
+                    $("a#call_add_customer_to_competition").click(function(){
+                        var name = $("input#customer_name").val();
+                        var address = $("input#restaurant_address").val();
+                        var signed = $("input#s123").val();
+                        var hashed = $("input#h123").val();
+                        contractInstance.add_customer_to_competition(name, address, hashed, signed, {from:web3.eth.accounts[0]}, function(error, result){
+                          if (error) {
+                              alert("Please, connect to the network");
+                              reject(error);
+                          }
+                          else {
+                            alert("Successfully Joined Competition")
+                          }
+                        });
+                    });
+                    $("a#call_get_winner").click(function(){
+                        var address_1 = $("input#restaurant_address_1").val();
+                        contractInstance.get_winner(address_1, {from:web3.eth.accounts[0]}, function(error, result){
+                          if (error) {
+                              alert("Please, connect to the network");
+                              reject(error);
+                          }
+                        });
+                    });
+                    $("a#call_show_winner").click(function(){
+                        var address_1 = $("input#restaurant_address_1").val();
+                        contractInstance.show_winner(address_1, {from:web3.eth.accounts[0]}, function(error, result){
+                          if (error) {
+                              alert("Please, connect to the network");
+                              reject(error);
+                          }
+                          else {
+                              $("span#winner").text("Winner: " + result);
+                          }
+                        });
+                    });
+                  }
+            });
+        </script>
+
+    </head>
+    <body class="subpage">
+      <!-- Header -->
+  			<header id="header">
+  				<div class="inner">
+  					<a href="index.html" class="logo">Customers</a>
+            <nav id="nav">
+  						<a href="intro">Home</a>
+  						<a href="restaurant">Restaurants Page</a>
+  					</nav>
+  					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+  				</div>
+  			</header>
+
+        <section id="three" class="wrapper">
+  				<div class="inner">
+  					<header id="test" class="align-center">
+  						<h2 style="color:black">Welcome to the Customer platform!</h2>
+  					</header>
+            <div class="flex flex-2">
+              <article>
+                <br />
+
+                <br />
+                  <div class = "input_class">
+                    <input type="text" id="restaurant_address" value="Insert restaurant address here"/>
+                  </div>
+                  <div class = "input_class">
+                    <input type="text" id="customer_name" value="Insert your name here"/>
+                  </div>
+                  <div class = "input_class">
+                    <input type="text" id="h123" value="Insert hash here"/>
+                  </div>
+                  <div class = "input_class">
+                    <input type="text" id="s123" value="Insert sign here"/>
+                  </div>
+                <br />
+
+                <br />
+
+
+                <footer>
+                  <a href="#" id="call_add_customer_to_competition" class="button special">Join Competition</a>
+                </footer>
+
+                <br />
+
+
+                <header class="align-center">
+                  <h2> Winner Section below! </h2>
+                </header>
+
+
+
+
+                <div class = "input_class">
+                  <input type="text" id="restaurant_address_1" value="Insert restaurant address here"/>
+                </div>
+                <div class = "input_class">
+                  <p><span id="winner">No winner yet</span></p>
+                </div>
+                <footer>
+                  <a href="#" id="call_get_winner" class="button special">Get winner!</a>
+                </footer>
+                <br />
+                <footer>
+                  <a href="#" id="call_show_winner" class="button special">Show winner!</a>
+                </footer>
+
+  						</article>
+            </div>
+  				</div>
+
+
+
+
+
+  			</section>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Intro Page</title>
+        <meta charset="utf-8" />
+    		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <style>
+
+        .button {
+          /* background-color: #4CAF50; */
+          border: solid;
+          color: white;
+          padding: 30px 150px;
+          /* flex: 1; */
+          margin-bottom: 5px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 30px;
+        }
+
+        .button_above {
+          /* background-color: #4CAF50;
+          border: none; */
+          color: white;
+          padding: 60px 700px;
+          width: auto;
+          text-align: center;
+          /* text-decoration: none; */
+          /* display: inline-block; */
+          font-size: 30px;
+
+        }
+
+        .place_middle {
+          text-align: center;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          margin-top: -60px;
+          margin-left: -610px;
+        }
+
+        .place_above {
+
+          left: 0;
+          top: 0;
+          height: 100%;
+          max-width: 100%;
+          max-height: 100%;
+          /* display: block; */
+
+          background-image: url("static/images/ocean.jpg");
+          /* Full height */
+
+          /* Center and scale the image nicely */
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+
+          text-align: center;
+          position: fixed;
+          /* top: 50%;
+          left: 50%;
+          margin-top: -260px;
+          margin-left: -580px; */
+
+        }
+
+        .splash {
+              left: 0;
+              top: 0;
+              position: fixed;
+              width: 100%;
+              height: 100vh;
+              z-index: 200;
+              text-align: center;
+              line-height: 90vh;
+              color: white;
+              background: black;
+        }
+
+        .splash.display-none {
+              left: 0;
+              top: 0;
+              opacity: 0;
+              position: fixed;
+              width: 100%;
+              height: 100vh;
+              z-index: -10;
+              text-align: center;
+              line-height: 90vh;
+              color: white;
+              background: black;
+              transition: all 0.5s;
+        }
+
+        @keyframes fadeIn {
+          to{
+            opacity: 1;
+          }
+        }
+
+        .bg {
+
+
+        }
+
+        .fade-in{
+          opacity: 0;
+          animation: fadeIn 2s ease-in forwards;
+        }
+
+        /* body {
+          background-image: url('static/images/ocean.jpg');
+        } */
+        </style>
+
+        <script lang="javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script lang="javascript">
+            var contract;
+
+            $(document).ready(function() {
+                if (typeof web3 !== 'undefined') {
+                    var sc_address = "{{contractAddress}}";
+                    var contractABI = web3.eth.contract(JSON.parse('{{contractABI | safe}}'));
+                    var contractInstance = contractABI.at(sc_address);
+                    contract = contractInstance;
+                }
+            });
+        </script>
+
+    </head>
+    <body>
+
+
+      <div class = "splash">
+        <h1 class = fade-in>Welcome to OceanClean!</h1>
+      </div>
+
+      <script lang="javascript">
+        const splash = document.querySelector('.splash');
+        document.addEventListener('DOMContentLoaded', (e)=>{
+          setTimeout(()=>{
+            splash.classList.add('display-none');
+          }, 2000);
+        });
+      </script>
+
+      <div class = "place_above">
+        <h1 class = button_above> OceanClean </h1>
+      </div>
+      <div class = "place_middle">
+        <a href="restaurant" class="button">Register Organisation</a>
+        <a href="customer" class="button">Register Volunteer</a>
+        <a href="store" class="button">Store</a>
+        <a href="leaderboards" class="button">Leaderboards</a>
+      </div>
+
+
+
+    </body>
+</html>
