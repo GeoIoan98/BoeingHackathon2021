@@ -1979,6 +1979,37 @@
 
 /* Form */
 
+.episodesLabel{
+	border-color: #000000;
+	border-top: 5px;
+	/*font-family: 'Bebas Neue';*/
+	background-color:  #f0b3fc;
+	color: #343635;
+	padding: 0px;
+	margin: 0px;
+	width: 200px;
+	font-size:30px;
+	display: block;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+	transition-duration: 0.4s;
+}
+.episodesLabel:hover{
+	border-color: #000000;
+	border-width: thick;
+	/*font-family: 'Bebas Neue';*/
+	background-color:  #f0b3fc;
+	color: #343635;
+	padding: 0px;
+	margin: 0px;
+	width: 200px;
+	font-size:32px;
+	display: block;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+	transition-duration: 0.4s;
+}
+
 	form {
 		margin: 0 0 2em 0;
 	}
