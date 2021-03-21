@@ -76,9 +76,11 @@
             var input = document.getElementById("bid_1");
             //var itsvalue = document.getElementById("bid_1").value;
             input.addEventListener("keyup", function(event) {
+              var pls = document.getElementById("bid_1").value
               if (event.keyCode === 13) {
                event.preventDefault();
-               document.getElementById("fname").innerHTML = 123;
+               //document.getElementById("fname").innerHTML = input.value;
+               document.getElementById("fname").textContent = pls;
                //document.getElementById("fname").innerHTML = itsvalue;
 
 
