@@ -37,14 +37,13 @@
 
         <script lang="javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script lang="javascript">
-            var contract;
 
             $(document).ready(function() {
+                window.ethereum.enable();
                 if (typeof web3 !== 'undefined') {
                     var sc_address = "{{contract_address}}";
                     var contractABI = web3.eth.contract(JSON.parse('{{contractABI | safe}}'));
                     var contractInstance = contractABI.at(sc_address);
-                    contract = contractInstance;
 
                     $("a#call_add").click(function(){
                         var name = $("input#volunteer_name").val();
@@ -53,10 +52,6 @@
                             if (error) {
                                 alert("Error");
                                 reject(error);
-                            }
-                            else {
-                                  $("span#hashed").html('Hashed message: ' + message);
-                                  $("span#sign").html('Signature: ' + result);
                             }
                         });
                     });
