@@ -71,13 +71,28 @@
             <span class="a" type="text" id="fname" name="firstname" placeholder="Your name..">No Bids yet!</span>
           </div>
           <div style="padding-top:10px">
-            <input type="text" id="bid_1" placeholder="Place your bid.."/>
+            <input type="number" id="bid_1" placeholder="Place your bid.."/>
             <script>
-                var input = document.getElementById("bid_1");
-                input.addEventListener("keyup", function(event) {
+                //var newbid = document.getElementById("bid_1");
+                var bid1 = $("input#bid_1").val();
+                bid1.addEventListener("keyup", function(event) {
                   if (event.keyCode === 13) {
-                   event.preventDefault();
-                   document.getElementById("fname").innerHTML = "Worked!";
+                    window.ethereum.enable();
+
+                    var sc_address = "{{contract_address}}";
+                    var contractABI = web3.eth.contract(JSON.parse('{{contractABI | safe}}'));
+                    var contractInstance = contractABI.at(sc_address);
+                    console.log(bid1);
+                    contractInstance.bid(0, bid1, {from:web3.eth.accounts[0]}, function(error, result) {
+                        if (error) {
+                            alert("Bid must be higher than best");
+                            reject(error);
+                        }
+                        else {
+                            document.getElementById("fname").innerHTML = result;
+                        }
+                    });
+                    event.preventDefault();
                   }
                 });
             </script>
