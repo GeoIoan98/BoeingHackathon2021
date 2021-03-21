@@ -71,18 +71,13 @@
             <span class="a" type="text" id="fname" name="firstname" placeholder="Your name..">No Bids yet!</span>
           </div>
           <div style="padding-top:10px">
-            <input type="number" id="bid_1" placeholder="Place your bid.."/>
+            <input type="text" id="bid_1" placeholder="Place your bid.."/>
             <script>
             var input = document.getElementById("bid_1");
-            //var itsvalue = document.getElementById("bid_1").value;
             input.addEventListener("keyup", function(event) {
               if (event.keyCode === 13) {
                event.preventDefault();
-               document.getElementById("fname").innerHTML = 123;
-               //document.getElementById("fname").innerHTML = itsvalue;
-
-
-               //$("#fname").text("testing");
+               document.getElementById("fname").innerHTML = input;
               }
             });
             </script>
@@ -103,13 +98,13 @@
           <div style="padding-top:10px">
             <input type="text" id="bid_2" placeholder="Place your bid.."/>
             <script>
-                var input = document.getElementById("bid_2");
-                input.addEventListener("keyup", function(event) {
-                  if (event.keyCode === 13) {
-                   event.preventDefault();
-                   document.getElementById("fname_2").innerHTML = "Worked!";
-                  }
-                });
+            var input = document.getElementById("bid_2");
+            input.addEventListener("keyup", function(event) {
+              if (event.keyCode === 13) {
+               event.preventDefault();
+               document.getElementById("fname_2").innerHTML = "Worked!";
+              }
+            });
             </script>
           </div>
 
