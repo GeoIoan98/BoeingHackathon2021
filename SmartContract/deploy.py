@@ -1,6 +1,7 @@
 import json
 from web3 import Web3, HTTPProvider
 import sys
+import binascii
 
 # contract details
 contract_path = './truffle/build/contracts/oceanCoin.json'
@@ -26,4 +27,7 @@ OceanCoin = w3.eth.contract(abi=abi, bytecode=bytecode)
 tx_hash = OceanCoin.constructor().transact()
 tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
 print("Contract deployed at address: {}".format(tx_receipt.contractAddress))
-contractAddress = tx_receipt.contractAddress
+
+fp=open('address.dat', 'w')
+fp.write(tx_receipt.contractAddress)
+fp.close()
