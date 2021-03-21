@@ -1,15 +1,6 @@
 import json
 from web3 import Web3, HTTPProvider
 import sys
-from ecies.utils import generate_eth_key, generate_key
-from ecies import encrypt, decrypt
-import random
-import hashlib
-from operator import itemgetter
-
-# ------------------------------------------------------------------------------
-# Setup
-# ------------------------------------------------------------------------------
 
 # contract details
 contract_path = './truffle/build/contracts/oceanCoin.json'
@@ -34,11 +25,5 @@ OceanCoin = w3.eth.contract(abi=abi, bytecode=bytecode)
 # deploy contract (call constructor)
 tx_hash = OceanCoin.constructor().transact()
 tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-print("Contract deployed at address: {} and block: {}"
-      .format(tx_receipt.contractAddress, w3.eth.blockNumber))
+print("Contract deployed at address: {}".format(tx_receipt.contractAddress))
 contractAddress = tx_receipt.contractAddress
-
-print(contractAddress)
-
-# contract interface
-#oceanCoin = w3.eth.contract(address=contractAddress, abi=abi)
