@@ -41,59 +41,15 @@
 
             $(document).ready(function() {
                 if (typeof web3 !== 'undefined') {
-                    var sc_address = "{{contractAddress}}";
+                    var sc_address = "{{contract_address}}";
                     var contractABI = web3.eth.contract(JSON.parse('{{contractABI | safe}}'));
                     var contractInstance = contractABI.at(sc_address);
                     contract = contractInstance;
 
-                    $("a#call_add_restaurant_to_competition").click(function(){
-                        var name  = $("input#volunteer_name").val();
-                        var addr  = $("input#volunteer_address").val();
-                        contractInstance.add_restaurant_to_competition(name, addr, {from:web3.eth.accounts[0], 'value': 1000000000000000000}, function(error, result){
-                          if (error) {
-                              alert("Please, connect to the network");
-                              reject(error);
-                          }
-                          // else {
-                          //   $('#willhide').hide();
-                          //   var d = new Date(new Date().getTime() + (expiration_copy*1000));
-                          //   expiration = d;
-                          //   $('#inserthere').append("<div class='restaurant_border'>" + "Restaurant name: " + name + "<br>" + "Offer expires: " + expiration + "<br>" + "Restaurant Address: " + web3.eth.accounts[0] + "</div>");
-                          //   setTimeout(function(){ // test to trigger automatically
-                          //       var address_1 = $("input#restaurant_address_1").val();
-                          //       contractInstance.get_winner(address_1, {from:web3.eth.accounts[0]}, function(error, result){
-                          //         if (error) {
-                          //             alert("Please, connect to the network");
-                          //             reject(error);
-                          //         }
-                          //       }); }, expiration_copy*1000);
-                          // }
-                        });
-                    });
-                    $("a#call_get_winner").click(function(){
-                        var address_1 = $("input#restaurant_address_1").val();
-                        contractInstance.get_winner(address_1, {from:web3.eth.accounts[0]}, function(error, result){
-                          if (error) {
-                              alert("Please, connect to the network");
-                              reject(error);
-                          }
-                        });
-                    });
-                    $("a#call_show_winner").click(function(){
-                        var address_1 = $("input#restaurant_address_1").val();
-                        contractInstance.show_winner(address_1, {from:web3.eth.accounts[0]}, function(error, result){
-                          if (error) {
-                              alert("Please, connect to the network");
-                              reject(error);
-                          }
-                          else {
-                              $("span#winner").text("Winner: " + result);
-                          }
-                        });
-                    });
-                    $("a#call_sign_message").click(function(){
-                        const message = web3.sha3($("input#message_to_sign").val());
-                        web3.eth.sign(web3.eth.accounts[0], message, function(error, result) {
+                    $("a#call_add").click(function(){
+                        var name = $("input#volunteer_name").val();
+                        var addr = $("input#volunteer_address").val();
+                        contract.addVolunteer(addr, name, {from:web3.eth.accounts[0]}, function(error, result) {
                             if (error) {
                                 alert("Error");
                                 reject(error);
@@ -104,8 +60,6 @@
                             }
                         });
                     });
-
-
 
                 }
                 else {
@@ -157,7 +111,7 @@
 
 
                   <footer>
-                    <a href="#" id="call_add_restaurant_to_competition" class="button special">Register Volunteer</a>
+                    <a href="#" id="call_add" class="button special">Register Volunteer</a>
                   </footer>
 
 

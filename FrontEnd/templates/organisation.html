@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Organisation</title>
+        <meta charset="utf-8" />
+    		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <style>
+          .title {
+            border: none;
+            /* height: 50px; */
+            /* padding: 15px 50px; */
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+          }
+
+          .input_class {
+            display: vertical;
+          }
+
+          .restaurant_border {
+            display: inline-block;
+            width: 700px;
+            padding: 10px;
+            border: 5px solid green;
+            margin: 0;
+          }
+
+        </style>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+        <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+  			<script src="{{ url_for('static', filename='assets/js/skel.min.js') }}"></script>
+  			<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+  			<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+
+        <script lang="javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script lang="javascript">
+            var contract;
+            window.ethereum.enable();
+
+            $(document).ready(function() {
+              if (typeof web3 !== 'undefined') {
+
+                window.web3 = new Web3(ethereum);
+                var accounts= await web3.eth.getAccounts();
+                var option={from: accounts[0] };
+                var contractAddress = "{{contractAddress}}";
+                var abi = web3.eth.contract(JSON.parse('{{contractABI | safe}}'));
+                var myContract = new web3.eth.Contract(abi,contractAddress);
+
+                $("a#call_add").click(function(){
+                    alert("Please, connect to the network");
+                    var name  = $("input#organisation_name").val();
+                    var addr  = $("input#organisation_address").val();
+                    var loc   = $("input#location").val();
+                    var email = $("input#email").val();
+                    alert("Please, connect to the network");
+                    myContract.methods.addOrganisation(addr, name, loc, email)
+                    .send(option,function(error,result){
+                        if (! error)
+                            console.log(result);
+                        else
+                            console.log(error);
+                    });
+                });
+              }
+              else {
+                alert("Please, install Metamask!");
+              }
+            });
+        </script>
+    </head>
+    <body class="subpage">
+      <!-- Header -->
+  			<header id="header">
+  				<div class="inner">
+  					<a href="restaurant" class="logo">OceanCoin</a>
+  					<nav id="nav">
+  						<a href="intro">Home</a>
+  						<a href="customer">Volunteer Page</a>
+  					</nav>
+  					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+  				</div>
+  			</header>
+
+        <section id="three" class="wrapper">
+  				<div class="inner">
+  					<header class="title" >
+  						<h2 style="color:black">Register Organisation</h2>
+  					</header>
+            <div class="flex flex-2">
+              <article>
+                    <div class = "input_class">
+                      <input type="text" id="organisation_name" placeholder="Organisation Name.."/>
+                    </div>
+                    <br />
+                    <br />
+                    <div class = "input_class">
+                      <input type="text" id="organisation_address" placeholder="Organisation Address.."/>
+                    </div>
+                    <br />
+                    <br />
+                    <div class = "input_class">
+                      <input type="text" id="location" placeholder="Location.."/>
+                    </div>
+                    <br />
+                    <br />
+                    <div class = "input_class">
+                      <input type="text" id="email" placeholder="E-mail.."/>
+                    </div>
+                  <br />
+                  <br />
+                  <div id="willhide">
+                    <h4 style="color:black">No organisations yet</h4>
+                  </div>
+                  <div id="inserthere"></div>
+                  <br />
+                  <footer>
+                    <a href="#" id="call_add" class="button special">Register Organisation</a>
+                  </footer>
+  						</article>
+            </div>
+  				</div>
+  			</section>
+    </body>
+</html>
