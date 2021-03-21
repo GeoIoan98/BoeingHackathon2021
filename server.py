@@ -18,7 +18,7 @@ w3.eth.defaultAccount = w3.eth.accounts[0]
 
 # contract details
 contract_path = './SmartContract/truffle/build/contracts/oceanCoin.json'
-contract_address = '0xC13F2A9791D35EC1aF154Ed30d0eE78C1C281720'
+contract_address = '0x8FDC2A165C0b95FD305f36118f652DbA4d137915'
 
 # open compiled file and get abi & bytecode
 truffleFile = json.load(open(contract_path))
@@ -27,6 +27,13 @@ bytecode = truffleFile['bytecode']
 
 # contract interface
 oceanCoin = w3.eth.contract(address=contract_address, abi=abi)
+
+# add auction 0
+tx_hash = oceanCoin.functions.startAuction(100).transact()
+tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+# add auction 1
+tx_hash = oceanCoin.functions.startAuction(100).transact()
+tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
 
 
 # ----- Set up server -----
