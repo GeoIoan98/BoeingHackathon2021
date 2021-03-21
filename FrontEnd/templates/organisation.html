@@ -47,9 +47,10 @@
 
                     $("a#call_add").click(function(){
                         var name  = $("input#organisation_name").val();
-                        var addr  = $("input#organisation_address").val();
+                        var addr  = $("input#organisation_address").val().toString();
                         var loc   = $("input#location").val();
                         var email = $("input#email").val();
+
                         contractInstance.addOrganisation(addr, name, loc, email, {from:web3.eth.accounts[0]}, function(error, result){
                           if (error) {
                             alert("Error! Please, connect to the network");
@@ -90,7 +91,7 @@
                     <br />
                     <br />
                     <div class = "input_class">
-                      <input type="text" id="organisation_address" placeholder="Organisation Address.."/>
+                      <input type="text" id="organisation_address" placeholder="Address.."/>
                     </div>
                     <br />
                     <br />
