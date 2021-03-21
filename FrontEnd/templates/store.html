@@ -73,20 +73,29 @@
           <div style="padding-top:10px">
             <input type="number" id="bid_1" placeholder="Place your bid.."/>
             <script>
-            var input = document.getElementById("bid_1");
-            //var itsvalue = document.getElementById("bid_1").value;
-            input.addEventListener("keyup", function(event) {
-              var pls = document.getElementById("bid_1").value
-              if (event.keyCode === 13) {
-               event.preventDefault();
-               //document.getElementById("fname").innerHTML = input.value;
-               document.getElementById("fname").textContent = pls;
-               //document.getElementById("fname").innerHTML = itsvalue;
+                var bid1 = document.getElementById("bid_1");
 
+                bid1.addEventListener("keyup", function(event) {
+                    var pls = document.getElementById("bid_1").value
+                    if (event.keyCode === 13) {
+                      event.preventDefault();
+                      window.ethereum.enable();
 
-               //$("#fname").text("testing");
-              }
-            });
+                      var sc_address = "{{contract_address}}";
+                      var contractABI = web3.eth.contract(JSON.parse('{{contractABI | safe}}'));
+                      var contractInstance = contractABI.at(sc_address);
+                      console.log(bid1);
+                      contractInstance.bid(0, pls, {from:web3.eth.accounts[0]}, function(error, result) {
+                          if (error) {
+                              alert("Bid must be higher than best");
+                              reject(error);
+                          }
+                          else {
+                              document.getElementById("fname").textContent = pls;
+                          }
+                      });
+                    }
+                  });
             </script>
           </div>
 
@@ -105,13 +114,28 @@
           <div style="padding-top:10px">
             <input type="text" id="bid_2" placeholder="Place your bid.."/>
             <script>
-                var input = document.getElementById("bid_2");
-                input.addEventListener("keyup", function(event) {
-                  if (event.keyCode === 13) {
-                   event.preventDefault();
-                   document.getElementById("fname_2").innerHTML = "Worked!";
-                  }
-                });
+                  var bid2 = document.getElementById("bid_2");
+
+                  bid2.addEventListener("keyup", function(event) {
+                      var pls2 = document.getElementById("bid_2").value
+                      if (event.keyCode === 13) {
+                        event.preventDefault();
+                        window.ethereum.enable();
+
+                        var sc_address = "{{contract_address}}";
+                        var contractABI = web3.eth.contract(JSON.parse('{{contractABI | safe}}'));
+                        var contractInstance = contractABI.at(sc_address);
+                        contractInstance.bid(0, pls2, {from:web3.eth.accounts[0]}, function(error, result) {
+                            if (error) {
+                                alert("Bid must be higher than best");
+                                reject(error);
+                            }
+                            else {
+                                document.getElementById("fname").textContent = pls2;
+                            }
+                        });
+                      }
+                    });
             </script>
           </div>
 
