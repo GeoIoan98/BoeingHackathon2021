@@ -133,7 +133,7 @@ contract oceanCoin {
         auctions[auctionCount].highestBidder = address(0x0);
         auctions[auctionCount].bestBid = 0;
         auctions[auctionCount].expiration = block.number + duration;
-        auctions[auctionCount].status = True;
+        auctions[auctionCount].status = true;
         auctionCount++;
     }
 
