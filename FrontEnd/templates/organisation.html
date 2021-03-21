@@ -37,38 +37,30 @@
 
         <script lang="javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script lang="javascript">
-            var contract;
-            window.ethereum.enable();
 
             $(document).ready(function() {
-              if (typeof web3 !== 'undefined') {
+                window.ethereum.enable();
+                if (typeof web3 !== 'undefined') {
+                    var sc_address = "{{contractAddress}}";
+                    var contractABI = web3.eth.contract(JSON.parse('{{contractABI | safe}}'));
+                    var contractInstance = contractABI.at(sc_address);
 
-                window.web3 = new Web3(ethereum);
-                var accounts= await web3.eth.getAccounts();
-                var option={from: accounts[0] };
-                var contractAddress = "{{contractAddress}}";
-                var abi = web3.eth.contract(JSON.parse('{{contractABI | safe}}'));
-                var myContract = new web3.eth.Contract(abi,contractAddress);
-
-                $("a#call_add").click(function(){
-                    alert("Please, connect to the network");
-                    var name  = $("input#organisation_name").val();
-                    var addr  = $("input#organisation_address").val();
-                    var loc   = $("input#location").val();
-                    var email = $("input#email").val();
-                    alert("Please, connect to the network");
-                    myContract.methods.addOrganisation(addr, name, loc, email)
-                    .send(option,function(error,result){
-                        if (! error)
-                            console.log(result);
-                        else
-                            console.log(error);
+                    $("a#call_add").click(function(){
+                        var name  = $("input#organisation_name").val();
+                        var addr  = $("input#organisation_address").val();
+                        var loc   = $("input#location").val();
+                        var email = $("input#email").val();
+                        contractInstance.addOrganisation(addr, name, loc, email, {from:web3.eth.accounts[0]}, function(error, result){
+                          if (error) {
+                            alert("Error! Please, connect to the network");
+                            reject(error);
+                          }
+                        });
                     });
-                });
-              }
-              else {
-                alert("Please, install Metamask!");
-              }
+                }
+                else {
+                    alert("Please, install Metamask!");
+                }
             });
         </script>
     </head>
