@@ -6,15 +6,21 @@
     		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <style>
+          body {
+              background-image: url("/static/images/sand.jfif");
+              background-repeat: no-repeat;
+              background-size: cover;
+          }
+
           .whole {
             display: inline-block;
-
+            margin-left: 250px;
           }
 
           .titles {
             background-color: lightgrey;
             width: 300px;
-            border: 5px solid green;
+            border: 2px solid black;
             padding: 30px;
             margin: 20px;
           }
@@ -46,8 +52,8 @@
             width: 100px;
             height: 100px;
             padding: 5px;
-            border: 1px solid blue;
-            background-color: yellow;
+            border: 1px solid black;
+            background-color: white;
           }
 
           .button_above {
@@ -55,10 +61,10 @@
             border: none; */
             position: relative;
             font-family: 'Pangolin';
-            color: #0074D9;
-            padding: 60px 700px;
+            color: #000000;
+            /* padding: 60px 700px; */
             margin: auto;
-            width: 30%;
+            /* width: 50%; */
             text-align: center;
             /* text-decoration: none; */
             /* display: inline-block; */
@@ -123,7 +129,7 @@
 
       <div class = "whole">
         <div class = "titles">
-          <h2 class = extra> Concert: Green mild jalapeno peppers </h2>
+          <h2 class = extra> VIP Tickets: Green mild jalapeno peppers </h2>
           <img src="/static/images/concert.jpg" width="300" height="233">
           <div>
             <span class="label other a">Current Best Bid:</span>
@@ -149,7 +155,7 @@
                                 reject(error);
                             }
                             else {
-                                document.getElementById("fname").textContent = pls2;
+                                document.getElementById("fname_2").textContent = pls2;
                             }
                         });
                       }

@@ -48,7 +48,7 @@
                     $("a#call_add").click(function(){
                         var name = $("input#volunteer_name").val();
                         var addr = $("input#volunteer_address").val();
-                        contract.addVolunteer(addr, name, {from:web3.eth.accounts[0]}, function(error, result) {
+                        contractInstance.addVolunteer(addr, name, {from:web3.eth.accounts[0]}, function(error, result) {
                             if (error) {
                                 alert("Error");
                                 reject(error);
@@ -71,6 +71,7 @@
   					<nav id="nav">
   						<a href="intro">Home</a>
   						<a href="organisation">Organisation Page</a>
+              <a href="store">Store</a>
   					</nav>
   					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
   				</div>
