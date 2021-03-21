@@ -116,6 +116,7 @@ contract oceanCoin {
 
     function addVolunteer(address addr, string memory name) external {
         bool found = false;
+        if (owner == msg.sender) { found = true; }
         for (uint i = 0; i < organisations.length; i++) {
             if (organisations[i] == msg.sender) {
                 found = true;
