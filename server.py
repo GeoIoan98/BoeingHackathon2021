@@ -18,7 +18,8 @@ w3.eth.defaultAccount = w3.eth.accounts[0]
 
 # contract details
 contract_path = './SmartContract/truffle/build/contracts/oceanCoin.json'
-contract_address = '0x026A6e70d5EFcc706531F42C7A48F14Fa068e93C'
+contract_address = '0xB6ACD76C2243736794e56a591B462a776fa0Cc0A'
+
 
 # open compiled file and get abi & bytecode
 truffleFile = json.load(open(contract_path))
